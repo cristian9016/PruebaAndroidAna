@@ -22,6 +22,10 @@ android {
     dataBinding{
         enabled = true
     }
+
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
 }
 
 def retrofit_version = '2.3.0'
@@ -44,12 +48,13 @@ dependencies {
     implementation "com.android.support:cardview-v7:$support_version"
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //Retrofit
     implementation "com.google.code.gson:gson:2.8.1"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
     //Kotlin
     implementation "org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version"
