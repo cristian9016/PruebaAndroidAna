@@ -1,6 +1,5 @@
-package prueba.movil.prueba.ui
+package prueba.movil.prueba.ui.main
 
-import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
@@ -14,25 +13,20 @@ import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.support.v4.startActivity
 import prueba.movil.prueba.R
 import prueba.movil.prueba.data.model.Item
 import prueba.movil.prueba.ui.adapter.ItemAdapter
-import prueba.movil.prueba.ui.fragments.MovieFragment
-import prueba.movil.prueba.ui.fragments.SerieFragment
+import prueba.movil.prueba.ui.detail.DetailActivity
+import prueba.movil.prueba.ui.main.movie.MovieFragment
+import prueba.movil.prueba.ui.main.serie.SerieFragment
 import prueba.movil.prueba.util.LifeDisposable
 import prueba.movil.prueba.util.applySchedulers
-import prueba.movil.prueba.util.buildViewModel
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, DrawerLayout.DrawerListener {
 
     var dis: LifeDisposable = LifeDisposable(this)
     lateinit var toggle: ActionBarDrawerToggle
-    val mainViewModel: MainViewModel by lazy { buildViewModel(factory, MainViewModel::class) }
-
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
 
     @Inject
     lateinit var injector: DispatchingAndroidInjector<Fragment>

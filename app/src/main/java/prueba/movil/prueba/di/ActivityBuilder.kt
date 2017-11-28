@@ -2,7 +2,8 @@ package prueba.movil.prueba.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import prueba.movil.prueba.ui.MainActivity
+import prueba.movil.prueba.di.module.MainModule
+import prueba.movil.prueba.ui.main.MainActivity
 
 /**
  * Created by Ana Marin on 26/11/2017.
@@ -10,6 +11,6 @@ import prueba.movil.prueba.ui.MainActivity
 @Module
 abstract class ActivityBuilder{
     @ActivityScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = arrayOf(MainModule::class))
     abstract fun bindMainActivity(): MainActivity
 }

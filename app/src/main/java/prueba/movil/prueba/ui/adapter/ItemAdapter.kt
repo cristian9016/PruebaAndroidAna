@@ -10,13 +10,14 @@ import prueba.movil.prueba.data.model.Item
 import prueba.movil.prueba.data.model.Movie
 import prueba.movil.prueba.databinding.TemplateItemBinding
 import prueba.movil.prueba.di.ActivityScope
+import prueba.movil.prueba.di.FragmentScope
 import prueba.movil.prueba.util.inflate
 import javax.inject.Inject
 
 /**
  * Created by Ana Marin on 26/11/2017.
  */
-@ActivityScope
+@FragmentScope
 class ItemAdapter @Inject constructor(): RecyclerView.Adapter<ItemAdapter.MovieHolder>(){
 
     val clickItem = PublishSubject.create<Movie>()

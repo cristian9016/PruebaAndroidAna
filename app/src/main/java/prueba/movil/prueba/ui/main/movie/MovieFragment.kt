@@ -1,4 +1,4 @@
-package prueba.movil.prueba.ui.fragments
+package prueba.movil.prueba.ui.main.movie
 
 
 import android.os.Bundle
@@ -34,7 +34,7 @@ class MovieFragment : Fragment() {
     }
 
     companion object {
-        fun instance():MovieFragment = MovieFragment()
+        fun instance(): MovieFragment = MovieFragment()
     }
 
 }// Required empty public constructor

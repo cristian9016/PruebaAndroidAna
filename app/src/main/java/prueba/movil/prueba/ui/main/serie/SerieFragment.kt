@@ -1,4 +1,4 @@
-package prueba.movil.prueba.ui.fragments
+package prueba.movil.prueba.ui.main.serie
 
 
 import android.os.Bundle
@@ -34,7 +34,7 @@ class SerieFragment : Fragment() {
     }
 
     companion object {
-        fun instance():SerieFragment = SerieFragment()
+        fun instance(): SerieFragment = SerieFragment()
     }
 
 }// Required empty public constructor

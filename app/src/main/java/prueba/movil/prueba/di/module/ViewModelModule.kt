@@ -6,7 +6,8 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
-import prueba.movil.prueba.ui.MainViewModel
+import prueba.movil.prueba.ui.main.movie.MovieViewModel
+import prueba.movil.prueba.ui.main.serie.SerieViewModel
 import prueba.movil.prueba.util.AppViewModelFactory
 import kotlin.reflect.KClass
 
@@ -20,12 +21,17 @@ internal  annotation class ViewModelKey(val value: KClass<out ViewModel>)
 abstract class ViewModelModule{
 
     @Binds
-    abstract fun bindViewModelFactory(factory: AppViewModelFactory): ViewModelProvider.Factory
+    @IntoMap
+    @ViewModelKey(MovieViewModel::class)
+    abstract fun bindMovieViewModel(viewModel: MovieViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindFarmViewModel(viewModel: MainViewModel): ViewModel
+    @ViewModelKey(SerieViewModel::class)
+    abstract fun bindSerieViewModel(viewModel: SerieViewModel): ViewModel
+
+    @Binds
+    abstract fun bindViewModelFactory(factory: AppViewModelFactory): ViewModelProvider.Factory
 
 
 

@@ -1,4 +1,5 @@
 package prueba.movil.prueba.data.dao
+
 /**
  * Created by Ana Marin on 26/11/2017.
  */
@@ -13,5 +14,11 @@ import prueba.movil.prueba.data.model.Movie
 interface MovieDao {
 
     @Query("SELECT * FROM movie")
-    fun all(): Flowable<List<Movie>>
+    fun lastest(): Flowable<List<Movie>>
+
+    @Query("DELETE FROM movie")
+    fun removeAll()
+
+    @Insert
+    fun insert(movies: List<Movie>)
 }

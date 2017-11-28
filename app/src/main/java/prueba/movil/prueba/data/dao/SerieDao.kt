@@ -1,9 +1,10 @@
 package prueba.movil.prueba.data.dao
 
 import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import io.reactivex.Flowable
-import prueba.movil.prueba.data.model.Movie
+import prueba.movil.prueba.data.model.Serie
 
 /**
  * Created by Ana Marin on 26/11/2017.
@@ -12,5 +13,11 @@ import prueba.movil.prueba.data.model.Movie
 interface SerieDao {
 
     @Query("SELECT * FROM serie")
-    fun all(): Flowable<List<Movie>>
+    fun lastest(): Flowable<List<Serie>>
+
+    @Query("DELETE FROM serie")
+    fun removeAll()
+
+    @Insert
+    fun insert(series: List<Serie>)
 }

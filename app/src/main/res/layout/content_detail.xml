@@ -6,6 +6,10 @@
     >
 
     <data>
+
+        <import type="prueba.movil.prueba.data.model.Item"/>
+        <import type="prueba.movil.prueba.data.model.Movie"/>
+        <import type="prueba.movil.prueba.data.model.Serie"/>
         <variable
             name="item"
             type="prueba.movil.prueba.data.model.Item"/>
@@ -45,13 +49,9 @@
                     android:id="@+id/iconDate"
                     android:layout_width="@dimen/icon"
                     android:layout_height="@dimen/icon"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/iconTime"
-                    app:srcCompat="@drawable/ic_calendar" />
+                    app:srcCompat="@drawable/ic_calendar"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="46dp" />
 
                 <TextView
                     android:id="@+id/time"
@@ -64,7 +64,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iconTime"
                     tools:text="Voto promedio"
-                    android:text="@{item.voteAverage}"
+                    android:text='@{""+item.voteAverage}'
                     />
 
                 <TextView
@@ -78,11 +78,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iconDate"
                     tools:text="Fecha"
-                    android:text="@{item.date}"
+                    android:text="@{item.getType == Item.TYPE_MOVIE ? ((Movie)item).releaseDate : ((Serie) item).firstAirDate}"
                     />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imageView2"
                     android:layout_width="@dimen/icon"
                     android:layout_height="@dimen/icon"
                     android:layout_marginBottom="8dp"
@@ -91,19 +91,20 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iconDate"
-                    app:srcCompat="@drawable/ic_merge" />
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/ic_popular" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/popularity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    tools:text="Genero" />
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    tools:text="Popularidad" />
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.CardView>

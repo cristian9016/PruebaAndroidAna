@@ -1,4 +1,4 @@
-package prueba.movil.prueba.ui
+package prueba.movil.prueba.ui.detail
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
