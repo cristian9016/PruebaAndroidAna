@@ -10,22 +10,16 @@ import android.view.View
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.startActivity
 import prueba.movil.prueba.R
-import prueba.movil.prueba.data.model.Item
 import prueba.movil.prueba.ui.adapter.ItemAdapter
-import prueba.movil.prueba.ui.detail.DetailActivity
 import prueba.movil.prueba.ui.main.movie.MovieFragment
 import prueba.movil.prueba.ui.main.serie.SerieFragment
-import prueba.movil.prueba.util.LifeDisposable
-import prueba.movil.prueba.util.applySchedulers
+import prueba.movil.prueba.util.putFragment
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, DrawerLayout.DrawerListener {
 
-    var dis: LifeDisposable = LifeDisposable(this)
     lateinit var toggle: ActionBarDrawerToggle
 
     @Inject
@@ -41,31 +35,13 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, DrawerLayo
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         drawer.addDrawerListener(this)
         //supportActionBar?.setTitle(R.string.categoria)
-
         nav.setNavigationItemSelectedListener { setContent(it) }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        dis add adapter.clickItem
-                .applySchedulers()
-                .subscribeBy { goToDetail(it) }
-    }
-
-    fun goToDetail(item: Item){
-        startActivity<DetailActivity>("params" to item)
+        putFragment(R.id.container, MovieFragment.instance())
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment>
             = injector
 
-
-    fun AppCompatActivity.putFragment(container: Int, fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-                .replace(container, fragment)
-                .commit()
-    }
 
     fun setContent(item: MenuItem?): Boolean {
         drawer.closeDrawers()

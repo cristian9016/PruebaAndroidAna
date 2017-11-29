@@ -26,8 +26,12 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+
 }
 
+androidExtensions {
+    experimental true
+}
 def retrofit_version = '2.3.0'
 def anko_version = '0.10.3'
 def support_version = '27.0.1'

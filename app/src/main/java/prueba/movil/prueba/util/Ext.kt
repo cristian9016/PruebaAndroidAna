@@ -32,3 +32,9 @@ fun <T : ViewModel> AppCompatActivity.buildViewModel(factory: ViewModelProvider.
 
 fun <T : ViewModel> Fragment.buildViewModel(factory: ViewModelProvider.Factory, kClass: KClass<T>): T
         = ViewModelProviders.of(this, factory).get(kClass.java)
+
+fun AppCompatActivity.putFragment(container: Int, fragment: Fragment) {
+    supportFragmentManager.beginTransaction()
+            .replace(container, fragment)
+            .commit()
+}
