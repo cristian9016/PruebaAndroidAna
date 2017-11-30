@@ -12,11 +12,11 @@ import prueba.movil.prueba.data.model.Serie
 @Dao
 interface SerieDao {
 
-    @Query("SELECT * FROM serie")
-    fun lastest(): Flowable<List<Serie>>
+    @Query("SELECT * FROM serie WHERE category = :category")
+    fun lastest(category: Int): Flowable<List<Serie>>
 
-    @Query("DELETE FROM serie")
-    fun removeAll()
+    @Query("DELETE FROM serie WHERE category = :category")
+    fun removeByCategory(category: Int)
 
     @Insert
     fun insert(series: List<Serie>)

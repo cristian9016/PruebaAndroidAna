@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ fun <T : ViewModel> AppCompatActivity.buildViewModel(factory: ViewModelProvider.
 fun <T : ViewModel> Fragment.buildViewModel(factory: ViewModelProvider.Factory, kClass: KClass<T>): T
         = ViewModelProviders.of(this, factory).get(kClass.java)
 
-fun AppCompatActivity.putFragment(container: Int, fragment: Fragment) {
+fun AppCompatActivity.putFragment(container: Int, fragment: Fragment, title:Unit) {
     supportFragmentManager.beginTransaction()
             .replace(container, fragment)
             .commit()

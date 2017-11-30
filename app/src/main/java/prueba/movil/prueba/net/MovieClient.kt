@@ -10,12 +10,12 @@ import retrofit2.http.Query
  */
 interface MovieClient{
 
-    @GET("movie/popular")
-    fun getPopular(@Query ("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<List<Movie>>>
+    @GET("/3/movie/popular")
+    fun getPopular(@Query ("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<Movie>>
 
-    @GET("movie/top_rated")
-    fun getTopRated(@Query ("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<List<Movie>>>
+    @GET("/3/movie/top_rated")
+    fun getTopRated(@Query ("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<Movie>>
 
-    @GET("movie/upcoming")
-    fun getUpcoming(@Query ("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<List<Movie>>>
+    @GET("/3/movie/upcoming")
+    fun getUpcoming(@Query ("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<Movie>>
 }

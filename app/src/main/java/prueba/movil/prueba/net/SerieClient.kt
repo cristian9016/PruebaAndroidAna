@@ -10,10 +10,10 @@ import retrofit2.http.Query
  */
 interface SerieClient{
 
-    @GET("tv/popular")
-    fun getPopular(@Query("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<List<Serie>>>
+    @GET("/3/tv/popular")
+    fun getPopular(@Query("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<Serie>>
 
-    @GET("tv/top_rated")
-    fun getTopRated(@Query("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<List<Serie>>>
+    @GET("/3/tv/top_rated")
+    fun getTopRated(@Query("api_key") apiKey: String, @Query("page") page:Int): Observable<Response<Serie>>
 
 }

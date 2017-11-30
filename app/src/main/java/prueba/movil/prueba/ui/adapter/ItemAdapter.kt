@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by Ana Marin on 26/11/2017.
  */
-@ActivityScope
+@FragmentScope
 class ItemAdapter @Inject constructor(): RecyclerView.Adapter<ItemAdapter.MovieHolder>(){
 
     val clickItem = PublishSubject.create<Movie>()

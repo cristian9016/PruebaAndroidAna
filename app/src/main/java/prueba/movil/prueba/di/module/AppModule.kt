@@ -41,4 +41,5 @@ class AppModule{
     @Provides
     fun providesSerieDao(appDatabase: AppDatabase): SerieDao =
             appDatabase.serieDao()
+
 }

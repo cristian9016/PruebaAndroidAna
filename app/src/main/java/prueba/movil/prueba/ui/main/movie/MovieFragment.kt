@@ -8,14 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.reactivex.rxkotlin.subscribeBy
-import kotlinx.android.synthetic.main.fragment_serie.*
+import kotlinx.android.synthetic.main.fragment_movie.*
+import org.jetbrains.anko.support.v4.toast
 
 import prueba.movil.prueba.R
 import prueba.movil.prueba.di.Injectable
 import prueba.movil.prueba.ui.adapter.ItemAdapter
 import prueba.movil.prueba.ui.main.MainNavigation
-import prueba.movil.prueba.util.LifeDisposable
-import prueba.movil.prueba.util.applySchedulers
+import prueba.movil.prueba.util.*
 import javax.inject.Inject
 
 
@@ -30,6 +30,11 @@ class MovieFragment : Fragment(), Injectable {
     lateinit var nav: MainNavigation
 
     val dis: LifeDisposable = LifeDisposable(this)
+    val category: Int by lazy { arguments!!.getInt(EXTRA_CATEGORY) }
+
+    @Inject
+    lateinit var factory: AppViewModelFactory
+    val viewModel:MovieViewModel by lazy { buildViewModel(factory, MovieViewModel::class) }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -43,13 +48,27 @@ class MovieFragment : Fragment(), Injectable {
         list.adapter = adapter
         list.layoutManager = LinearLayoutManager(activity)
 
+        dis add viewModel.getFirstPage(category).subscribeByShot(
+                onNext = {
+                    adapter.items = it
+                },
+                onHttpError = { toast(it) },
+                onError = { toast(it.message!!) })
+
         dis add adapter.clickItem
                 .applySchedulers()
                 .subscribeBy (onNext = {nav.navigateToDetail(it)} )
     }
 
     companion object {
-        fun instance(): MovieFragment = MovieFragment()
+        val EXTRA_CATEGORY = "category"
+        fun instance(itemCategory:Int): MovieFragment{
+            val fragment = MovieFragment()
+            val args = Bundle()
+            args.putInt(EXTRA_CATEGORY,itemCategory)
+            fragment.arguments = args
+            return fragment
+        }
     }
 
 }// Required empty public constructor

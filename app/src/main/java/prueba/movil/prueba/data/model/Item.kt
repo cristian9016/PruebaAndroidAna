@@ -17,6 +17,7 @@ abstract class Item {
     var popularity: Double = 0.0
     lateinit var overview: String
     lateinit var name: String
+    var category: Int = 0
 
     abstract fun getType():Int
 
@@ -25,5 +26,9 @@ abstract class Item {
         val TYPE_SERIE: Int = 0
         @JvmStatic
         val TYPE_MOVIE: Int = 1
+
+        val CATEGORY_TOP_RATED = 0
+        val CATEGORY_POPULAR = 1
+        val CATEGORY_UPCOMING = 2
     }
 }

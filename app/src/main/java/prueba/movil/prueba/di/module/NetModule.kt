@@ -36,4 +36,8 @@ class NetModule{
     fun provideSerieClient(retrofit: Retrofit): SerieClient =
             retrofit.create(SerieClient::class.java)
 
+    @Singleton
+    @Provides
+    fun provideApiKey(context: Context): String = context.getString(R.string.apiKey)
+
 }
