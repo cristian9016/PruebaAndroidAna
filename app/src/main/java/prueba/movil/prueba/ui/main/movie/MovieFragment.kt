@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_movie.*
 import org.jetbrains.anko.support.v4.toast
@@ -17,6 +18,8 @@ import prueba.movil.prueba.ui.adapter.ItemAdapter
 import prueba.movil.prueba.ui.main.MainNavigation
 import prueba.movil.prueba.util.*
 import javax.inject.Inject
+import com.jakewharton.rxbinding2.widget.RxTextView
+import prueba.movil.prueba.data.model.Movie
 
 
 /**

@@ -14,6 +14,7 @@ import javax.inject.Inject
  */
 class MovieViewModel @Inject constructor(private val client: MovieClient,
                                          private val dao: MovieDao, private val apiKey: String) : ViewModel() {
+
     fun getFirstPage(category: Int): Observable<List<Movie>> =
             Observable.concat(dao.lastest(category).toObservable(), getMovies(category, 0))
             .applySchedulers()
