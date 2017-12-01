@@ -1,7 +1,9 @@
 package prueba.movil.prueba.net
 
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import prueba.movil.prueba.data.model.Movie
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query

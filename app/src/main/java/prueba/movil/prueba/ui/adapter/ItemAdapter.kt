@@ -4,6 +4,9 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.Filter
+import android.widget.Filterable
 import io.reactivex.subjects.PublishSubject
 import prueba.movil.prueba.R
 import prueba.movil.prueba.data.model.Item
@@ -18,7 +21,7 @@ import javax.inject.Inject
  * Created by Ana Marin on 26/11/2017.
  */
 @FragmentScope
-class ItemAdapter @Inject constructor(): RecyclerView.Adapter<ItemAdapter.MovieHolder>(){
+class ItemAdapter @Inject constructor(): RecyclerView.Adapter<ItemAdapter.MovieHolder>(), Filterable{
 
     val clickItem = PublishSubject.create<Movie>()
 
@@ -40,6 +43,12 @@ class ItemAdapter @Inject constructor(): RecyclerView.Adapter<ItemAdapter.MovieH
 
     class MovieHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val binding: TemplateItemBinding = DataBindingUtil.bind(itemView)
-
     }
+
+    //region Search
+    override fun getFilter(): Filter {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    //endregion
+
 }

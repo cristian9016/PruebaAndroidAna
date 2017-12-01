@@ -16,7 +16,6 @@ abstract class Item {
     var voteAverage: Double = 0.0
     var popularity: Double = 0.0
     lateinit var overview: String
-    lateinit var name: String
     var category: Int = 0
 
     abstract fun getType():Int

@@ -27,7 +27,7 @@ class SerieViewModel @Inject constructor(private val client: SerieClient, privat
         else -> client.getTopRated(apiKey, page)
     }
             .map {
-                if (page == 0) dao.removeByCategory(category)
+                if (page == 1) dao.removeByCategory(category)
                 dao.insert(it.results.map {
                     it.category = category
                     it

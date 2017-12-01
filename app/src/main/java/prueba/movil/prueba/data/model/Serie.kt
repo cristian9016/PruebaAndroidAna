@@ -10,11 +10,12 @@ import com.google.gson.annotations.SerializedName
 @Entity
 class Serie: Item() {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id:Long? = null
 
     @SerializedName("first_air_date")
     lateinit var firstAirDate:String
+    lateinit var name: String
 
     override fun getType(): Int = TYPE_SERIE
 }

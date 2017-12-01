@@ -1,12 +1,15 @@
 package prueba.movil.prueba.ui.main.movie
 
 import android.arch.lifecycle.ViewModel
+import android.util.Log
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import prueba.movil.prueba.data.dao.MovieDao
 import prueba.movil.prueba.data.model.Item
 import prueba.movil.prueba.data.model.Movie
 import prueba.movil.prueba.net.MovieClient
 import prueba.movil.prueba.util.applySchedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -15,8 +18,9 @@ import javax.inject.Inject
 class MovieViewModel @Inject constructor(private val client: MovieClient,
                                          private val dao: MovieDao, private val apiKey: String) : ViewModel() {
 
-    fun getFirstPage(category: Int): Observable<List<Movie>> =
-            Observable.concat(dao.lastest(category).toObservable(), getMovies(category, 0))
+    fun getFirstPage(category: Int): Observable<List<Movie>> = dao.lastest(category).toObservable()
+            .concatWith(Observable.timer(200, TimeUnit.MILLISECONDS)
+                    .flatMap { getMovies(category, 1) })
             .applySchedulers()
 
     fun getMoviesByPage(category: Int, page: Int) = getMovies(category, page)
@@ -28,7 +32,7 @@ class MovieViewModel @Inject constructor(private val client: MovieClient,
         else -> client.getTopRated(apiKey, page)
     }
             .map {
-                if (page == 0) dao.removeByCategory(category)
+                if (page == 1) dao.removeByCategory(category)
                 dao.insert(it.results.map {
                     it.category = category
                     it

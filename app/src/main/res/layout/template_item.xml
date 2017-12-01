@@ -42,15 +42,14 @@
                     android:id="@+id/img_poster"
                     android:layout_width="@dimen/img_template"
                     android:layout_height="@dimen/img_template"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    app:imgUrl="@{item.posterPath}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@color/img_bg"
-                    app:imgUrl="@{item.posterPath}"
-                    />
+                    app:srcCompat="@color/img_bg" />
 
                 <TextView
                     android:id="@+id/title"
@@ -64,7 +63,7 @@
                     app:layout_constraintStart_toEndOf="@+id/img_poster"
                     app:layout_constraintTop_toTopOf="@+id/img_poster"
                     tools:text="Titulo"
-                    android:text="@{item.name}"
+                    android:text="@{item.getType() == Item.TYPE_MOVIE ? ((Movie)item).title : ((Serie) item).name}"
                     />
 
                 <TextView
@@ -73,13 +72,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
+                    android:text='@{""+item.voteAverage}'
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_star"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/icon_star"
-                    tools:text="Voto promedio"
-                    android:text='@{""+item.voteAverage}'
-                    />
+                    tools:text="Voto promedio" />
 
                 <TextView
                     android:id="@+id/release_date"
@@ -87,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
-                    android:text="@{item.getType == Item.TYPE_MOVIE ? ((Movie)item).releaseDate : ((Serie) item).firstAirDate}"
+                    android:text="@{item.getType() == Item.TYPE_MOVIE ? ((Movie)item).releaseDate : ((Serie) item).firstAirDate}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_date"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -108,9 +106,10 @@
                     android:id="@+id/icon_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/img_poster"
-                    app:srcCompat="@drawable/ic_calendar"
-                    tools:layout_editor_absoluteX="184dp" />
+                    app:layout_constraintStart_toEndOf="@+id/img_poster"
+                    app:srcCompat="@drawable/ic_calendar" />
 
 
             </android.support.constraint.ConstraintLayout>

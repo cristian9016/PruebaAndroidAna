@@ -23,7 +23,7 @@ class NetModule{
             Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-            .baseUrl(context.getString(R.string.base_url))
+            .baseUrl("https://api.themoviedb.org/")
             .build()
 
     @Provides

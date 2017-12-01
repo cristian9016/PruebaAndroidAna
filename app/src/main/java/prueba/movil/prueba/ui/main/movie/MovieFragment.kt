@@ -4,6 +4,7 @@ package prueba.movil.prueba.ui.main.movie
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,9 @@ import prueba.movil.prueba.util.*
 import javax.inject.Inject
 import com.jakewharton.rxbinding2.widget.RxTextView
 import prueba.movil.prueba.data.model.Movie
+import prueba.movil.prueba.net.Response
+import retrofit2.Call
+import retrofit2.Callback
 
 
 /**
@@ -49,14 +53,17 @@ class MovieFragment : Fragment(), Injectable {
     override fun onResume() {
         super.onResume()
         list.adapter = adapter
-        list.layoutManager = LinearLayoutManager(activity)
-
         dis add viewModel.getFirstPage(category).subscribeByShot(
                 onNext = {
+
                     adapter.items = it
                 },
                 onHttpError = { toast(it) },
                 onError = { toast(it.message!!) })
+
+
+
+        list.layoutManager = LinearLayoutManager(activity)
 
         dis add adapter.clickItem
                 .applySchedulers()

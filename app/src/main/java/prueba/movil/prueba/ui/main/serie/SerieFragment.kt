@@ -49,7 +49,8 @@ class SerieFragment : Fragment(), Injectable {
         list.layoutManager = LinearLayoutManager(activity)
 
         dis add viewModel.getFirstPage(category).subscribeByShot(
-                onNext = { adapter.items = it },
+                onNext = {
+                    adapter.items = it },
                 onHttpError = { toast(it) },
                 onError = { toast(it.message!!) })
 
