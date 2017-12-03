@@ -5,6 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
+        <import type="prueba.movil.prueba.data.model.Item"/>
+        <import type="prueba.movil.prueba.data.model.Movie"/>
+        <import type="prueba.movil.prueba.data.model.Serie"/>
         <variable
             name="item"
             type="prueba.movil.prueba.data.model.Item"/>
@@ -33,9 +36,10 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing"
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
+                android:layout_height="280dp"
                 app:layout_scrollFlags="scroll|enterAlwaysCollapsed|exitUntilCollapsed"
                 app:contentScrim="@color/colorPrimary"
+                app:title="@{item.getType() == Item.TYPE_MOVIE ? ((Movie)item).title : ((Serie) item).name}"
                 >
 
                 <ImageView
@@ -44,7 +48,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
-                    app:imgUrl="@{item.backdropPath}"
+                    app:imgUrl='@{@string/img_url + item.backdropPath}'
                     />
 
                 <android.support.v7.widget.Toolbar

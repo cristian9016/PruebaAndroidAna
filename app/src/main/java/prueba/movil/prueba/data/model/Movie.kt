@@ -16,7 +16,7 @@ import kotlinx.android.parcel.Parcelize
 class Movie: Item(), Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    var id:Long? = null
+    var idMovie:Long? = null
     @SerializedName("release_date")
     lateinit var releaseDate:String
     var adult:Boolean = false

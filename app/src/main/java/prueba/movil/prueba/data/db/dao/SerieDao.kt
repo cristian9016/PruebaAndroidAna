@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import io.reactivex.Flowable
+import io.reactivex.Single
 import prueba.movil.prueba.data.model.Serie
 
 /**
@@ -13,7 +14,7 @@ import prueba.movil.prueba.data.model.Serie
 interface SerieDao {
 
     @Query("SELECT * FROM serie WHERE category = :category")
-    fun lastest(category: Int): Flowable<List<Serie>>
+    fun lastest(category: Int): Single<List<Serie>>
 
     @Query("DELETE FROM serie WHERE category = :category")
     fun removeByCategory(category: Int)

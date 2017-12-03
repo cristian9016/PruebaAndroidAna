@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
-import prueba.movil.prueba.data.AppDatabase
+import prueba.movil.prueba.data.db.AppDatabase
 import prueba.movil.prueba.data.dao.MovieDao
 import prueba.movil.prueba.data.dao.SerieDao
 import javax.inject.Singleton

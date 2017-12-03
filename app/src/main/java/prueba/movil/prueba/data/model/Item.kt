@@ -1,13 +1,17 @@
 package prueba.movil.prueba.data.model
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Ana Marin on 26/11/2017.
  */
+@SuppressLint("ParcelCreator")
+open class Item {
 
-abstract class Item {
-
+    var id:Long = 0
     @SerializedName("poster_path")
     var posterPath: String? = null
     @SerializedName("backdrop_path")
@@ -18,7 +22,7 @@ abstract class Item {
     lateinit var overview: String
     var category: Int = 0
 
-    abstract fun getType():Int
+    open fun getType():Int = 0
 
     companion object {
         @JvmStatic

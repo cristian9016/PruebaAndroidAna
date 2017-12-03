@@ -4,26 +4,22 @@ package prueba.movil.prueba.ui.main.movie
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_movie.*
 import org.jetbrains.anko.support.v4.toast
-
 import prueba.movil.prueba.R
+import prueba.movil.prueba.data.model.Movie
 import prueba.movil.prueba.di.Injectable
 import prueba.movil.prueba.ui.adapter.ItemAdapter
 import prueba.movil.prueba.ui.main.MainNavigation
-import prueba.movil.prueba.util.*
+import prueba.movil.prueba.util.AppViewModelFactory
+import prueba.movil.prueba.util.LifeDisposable
+import prueba.movil.prueba.util.buildViewModel
+import prueba.movil.prueba.util.subscribeByShot
 import javax.inject.Inject
-import com.jakewharton.rxbinding2.widget.RxTextView
-import prueba.movil.prueba.data.model.Movie
-import prueba.movil.prueba.net.Response
-import retrofit2.Call
-import retrofit2.Callback
 
 
 /**
@@ -32,7 +28,7 @@ import retrofit2.Callback
 class MovieFragment : Fragment(), Injectable {
 
     @Inject
-    lateinit var adapter: ItemAdapter
+    lateinit var adapter: ItemAdapter<Movie>
     @Inject
     lateinit var nav: MainNavigation
 
@@ -41,7 +37,7 @@ class MovieFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var factory: AppViewModelFactory
-    val viewModel:MovieViewModel by lazy { buildViewModel(factory, MovieViewModel::class) }
+    val viewModel: MovieViewModel by lazy { buildViewModel<MovieViewModel>(factory) }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,29 +49,31 @@ class MovieFragment : Fragment(), Injectable {
     override fun onResume() {
         super.onResume()
         list.adapter = adapter
+        list.layoutManager = LinearLayoutManager(activity)
+
+        dis add adapter.scrollEnd
+                .map { 1 }
+                .scan(1, {a, v -> a + v})
+                .flatMap { viewModel.getMoviesByPage(category, it) }
+                .subscribe { adapter.addItems(it) }
+
         dis add viewModel.getFirstPage(category).subscribeByShot(
                 onNext = {
-
-                    adapter.items = it
+                    adapter.items = it.toMutableList()
                 },
                 onHttpError = { toast(it) },
                 onError = { toast(it.message!!) })
 
-
-
-        list.layoutManager = LinearLayoutManager(activity)
-
         dis add adapter.clickItem
-                .applySchedulers()
-                .subscribeBy (onNext = {nav.navigateToDetail(it)} )
+                .subscribeBy(onNext = { nav.navigateToDetail(it) })
     }
 
     companion object {
         val EXTRA_CATEGORY = "category"
-        fun instance(itemCategory:Int): MovieFragment{
+        fun instance(itemCategory: Int): MovieFragment {
             val fragment = MovieFragment()
             val args = Bundle()
-            args.putInt(EXTRA_CATEGORY,itemCategory)
+            args.putInt(EXTRA_CATEGORY, itemCategory)
             fragment.arguments = args
             return fragment
         }

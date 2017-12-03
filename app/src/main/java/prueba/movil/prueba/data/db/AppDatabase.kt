@@ -1,4 +1,4 @@
-package prueba.movil.prueba.data
+package prueba.movil.prueba.data.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
@@ -10,7 +10,7 @@ import prueba.movil.prueba.data.model.Serie
 /**
  * Created by Ana Marin on 26/11/2017.
  */
-@Database(entities = arrayOf(Movie::class, Serie::class), version = 3)
+@Database(entities = arrayOf(Movie::class, Serie::class), version = 4)
 
 abstract class AppDatabase: RoomDatabase(){
     abstract fun movieDao(): MovieDao //Proveo el acceso a mi Dao

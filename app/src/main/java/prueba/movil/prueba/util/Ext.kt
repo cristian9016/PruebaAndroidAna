@@ -19,20 +19,8 @@ import kotlin.reflect.KClass
  */
 fun ViewGroup.inflate(@LayoutRes layout:Int) = LayoutInflater.from(context).inflate(layout, this, false)
 
-fun EditText.text():String = text.toString()
-
-fun AppCompatActivity.validateForm(message: Int,
-                                   vararg fields: String) : Observable<List<String>>
-        = Observable.create<List<String>>{
-    if(fields.contains("")) toast(message)
-    else it.onNext(fields.toList())
-    it.onComplete()
-}
-fun <T : ViewModel> AppCompatActivity.buildViewModel(factory: ViewModelProvider.Factory, kClass: KClass<T>): T
-        = ViewModelProviders.of(this, factory).get(kClass.java)
-
-fun <T : ViewModel> Fragment.buildViewModel(factory: ViewModelProvider.Factory, kClass: KClass<T>): T
-        = ViewModelProviders.of(this, factory).get(kClass.java)
+inline fun <reified T : ViewModel> Fragment.buildViewModel(factory: ViewModelProvider.Factory): T
+        = ViewModelProviders.of(this, factory).get(T::class.java)
 
 fun AppCompatActivity.putFragment(container: Int, fragment: Fragment, title:Unit) {
     supportFragmentManager.beginTransaction()

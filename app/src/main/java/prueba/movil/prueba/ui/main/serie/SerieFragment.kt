@@ -11,10 +11,12 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_serie.*
 import org.jetbrains.anko.support.v4.toast
 import prueba.movil.prueba.R
+import prueba.movil.prueba.data.model.Serie
 import prueba.movil.prueba.di.Injectable
 import prueba.movil.prueba.ui.adapter.ItemAdapter
 import prueba.movil.prueba.ui.main.MainNavigation
 import prueba.movil.prueba.util.*
+import prueba.movil.prueba.util.buildViewModel
 import javax.inject.Inject
 
 
@@ -27,11 +29,11 @@ class SerieFragment : Fragment(), Injectable {
     val category: Int by lazy { arguments!!.getInt(EXTRA_CATEGORY) }
 
     @Inject
-    lateinit var adapter: ItemAdapter
+    lateinit var adapter: ItemAdapter<Serie>
 
     @Inject
     lateinit var factory: AppViewModelFactory
-    val viewModel: SerieViewModel by lazy { buildViewModel(factory, SerieViewModel::class) }
+    val viewModel: SerieViewModel by lazy { buildViewModel<SerieViewModel>(factory) }
 
     @Inject
     lateinit var nav: MainNavigation
@@ -48,15 +50,19 @@ class SerieFragment : Fragment(), Injectable {
         list.adapter = adapter
         list.layoutManager = LinearLayoutManager(activity)
 
+        dis add adapter.scrollEnd
+                .map { 1 }
+                .scan(1, {a, v -> a + v})
+                .flatMap { viewModel.getSeriesByPage(category, it) }
+                .subscribe { adapter.addItems(it) }
+
         dis add viewModel.getFirstPage(category).subscribeByShot(
-                onNext = {
-                    adapter.items = it },
+                onNext = {adapter.items = it.toMutableList() },
                 onHttpError = { toast(it) },
                 onError = { toast(it.message!!) })
 
         dis add adapter.clickItem
-                .applySchedulers()
-                .subscribeBy (onNext = {nav.navigateToDetail(it)} )
+                .subscribeBy(onNext = { nav.navigateToDetail(it) })
 
     }
 

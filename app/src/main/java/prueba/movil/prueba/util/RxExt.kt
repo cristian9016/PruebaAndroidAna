@@ -35,57 +35,13 @@ class LifeDisposable(owner: LifecycleOwner): LifecycleObserver{
     }
 }
 
-fun <T> Flowable<T>.applySchedulers(): Flowable<T> = compose {
-    it.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-}
-
-
 fun <T> Observable<T>.applySchedulers(): Observable<T> = compose {
     it.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T> Observable<T>.subscribeByAction(onNext: (T) -> Unit, onHttpError: (resString: Int) -> Unit,
-                                        onError: ((error: Throwable) -> Unit)? = null): Disposable =
-
-        doOnError {
-            when(it){
-                is SocketTimeoutException -> onHttpError(R.string.socket)
-                is HttpException -> {
-                    when(it.code()) {
-                        404 -> onHttpError(R.string.http_404)
-                        401 -> onHttpError(R.string.http_401)
-                        else -> onHttpError(R.string.http_500)
-                    }
-                }
-                else -> onError?.invoke(it)
-            }
-        }
-                .retry()
-                .subscribe(onNext, {})
-
-//Extension para validar errores con observables
 
 fun <T> Observable<T>.subscribeByShot(onNext: (T) -> Unit, onHttpError: (resString: Int) -> Unit,
-                                      onError: ((error: Throwable) -> Unit)? = null): Disposable =
-
-        doOnError {
-            when(it){
-                is SocketTimeoutException -> onHttpError(R.string.socket)
-                is HttpException -> {
-                    when(it.code()) {
-                        404 -> onHttpError(R.string.http_404)
-                        401 -> onHttpError(R.string.http_401)
-                        else -> onHttpError(R.string.http_500)
-                    }
-                }
-                else -> onError?.invoke(it)
-            }
-        }
-                .subscribe(onNext, {})
-
-fun <T> Flowable<T>.subscribeByShot(onNext: (T) -> Unit, onHttpError: (resString: Int) -> Unit,
                                       onError: ((error: Throwable) -> Unit)? = null): Disposable =
 
         doOnError {

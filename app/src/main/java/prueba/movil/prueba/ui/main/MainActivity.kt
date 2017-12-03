@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector, DrawerLayo
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         drawer.addDrawerListener(this)
         nav.setNavigationItemSelectedListener { setContent(it.itemId) }
-        setContent(R.id.nav_upcoming_movies)
+        setContent(R.id.nav_popular_movies)
 
     }
 

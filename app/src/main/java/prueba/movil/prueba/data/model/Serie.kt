@@ -1,17 +1,22 @@
 package prueba.movil.prueba.data.model
 
+import android.annotation.SuppressLint
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Ana Marin on 26/11/2017.
  */
+@SuppressLint("ParcelCreator")
+@Parcelize
 @Entity
-class Serie: Item() {
+class Serie: Item(), Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    var id:Long? = null
+    var idSerie:Long? = null
 
     @SerializedName("first_air_date")
     lateinit var firstAirDate:String

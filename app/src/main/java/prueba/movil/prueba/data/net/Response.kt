@@ -1,4 +1,4 @@
-package prueba.movil.prueba.net
+package prueba.movil.prueba.data.net
 
 /**
  * Created by Ana Marin on 26/11/2017.

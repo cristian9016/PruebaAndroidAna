@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
 import prueba.movil.prueba.R
-import prueba.movil.prueba.net.MovieClient
-import prueba.movil.prueba.net.SerieClient
+import prueba.movil.prueba.data.net.MovieClient
+import prueba.movil.prueba.data.net.SerieClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,7 +23,7 @@ class NetModule{
             Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-            .baseUrl("https://api.themoviedb.org/")
+            .baseUrl(context.getString(R.string.base_url))
             .build()
 
     @Provides
