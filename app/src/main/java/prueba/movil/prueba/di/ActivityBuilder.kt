@@ -5,6 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import prueba.movil.prueba.di.module.MainModule
 import prueba.movil.prueba.ui.detail.DetailActivity
 import prueba.movil.prueba.ui.main.MainActivity
+import prueba.movil.prueba.ui.search.SearchActivity
 
 /**
  * Created by Ana Marin on 26/11/2017.
@@ -18,4 +19,8 @@ abstract class ActivityBuilder{
     @ActivityScope
     @ContributesAndroidInjector
     abstract fun bindDetailActivity(): DetailActivity
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract fun bindSearchActivity(): SearchActivity
 }

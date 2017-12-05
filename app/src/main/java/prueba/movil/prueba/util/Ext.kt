@@ -19,10 +19,13 @@ import kotlin.reflect.KClass
  */
 fun ViewGroup.inflate(@LayoutRes layout:Int) = LayoutInflater.from(context).inflate(layout, this, false)
 
+inline fun <reified T : ViewModel> AppCompatActivity.buildViewModel(factory: ViewModelProvider.Factory): T
+        = ViewModelProviders.of(this, factory).get(T::class.java)
+
 inline fun <reified T : ViewModel> Fragment.buildViewModel(factory: ViewModelProvider.Factory): T
         = ViewModelProviders.of(this, factory).get(T::class.java)
 
-fun AppCompatActivity.putFragment(container: Int, fragment: Fragment, title:Unit) {
+fun AppCompatActivity.putFragment(container: Int, fragment: Fragment) {
     supportFragmentManager.beginTransaction()
             .replace(container, fragment)
             .commit()

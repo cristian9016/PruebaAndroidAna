@@ -6,6 +6,7 @@ import dagger.Provides
 import io.reactivex.schedulers.Schedulers
 import prueba.movil.prueba.R
 import prueba.movil.prueba.data.net.MovieClient
+import prueba.movil.prueba.data.net.SearchClient
 import prueba.movil.prueba.data.net.SerieClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -35,6 +36,11 @@ class NetModule{
     @Singleton
     fun provideSerieClient(retrofit: Retrofit): SerieClient =
             retrofit.create(SerieClient::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSearchClient(retrofit: Retrofit): SearchClient =
+            retrofit.create(SearchClient::class.java)
 
     @Singleton
     @Provides

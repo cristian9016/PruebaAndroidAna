@@ -18,4 +18,7 @@ interface MovieClient{
 
     @GET("/3/movie/upcoming")
     fun getUpcoming(@Query ("api_key") apiKey: String, @Query("page") page:Int, @Query("language") language:String): Observable<Response<Movie>>
+
 }
+
+

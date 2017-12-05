@@ -2,8 +2,10 @@ package prueba.movil.prueba.ui.adapter
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mancj.materialsearchbar.adapter.SuggestionsAdapter
 import io.reactivex.subjects.PublishSubject
 import prueba.movil.prueba.R
 import prueba.movil.prueba.data.model.Item
@@ -46,7 +48,4 @@ class ItemAdapter<T:Item> @Inject constructor(): RecyclerView.Adapter<ItemAdapte
     class ItemHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val binding: TemplateItemBinding = DataBindingUtil.bind(itemView)
     }
-
-
-
 }

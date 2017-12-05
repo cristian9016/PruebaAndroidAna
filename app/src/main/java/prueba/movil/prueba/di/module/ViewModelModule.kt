@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import prueba.movil.prueba.ui.main.movie.MovieViewModel
 import prueba.movil.prueba.ui.main.serie.SerieViewModel
+import prueba.movil.prueba.ui.search.SearchViewModel
 import prueba.movil.prueba.util.AppViewModelFactory
 import kotlin.reflect.KClass
 
@@ -29,6 +30,11 @@ abstract class ViewModelModule{
     @IntoMap
     @ViewModelKey(SerieViewModel::class)
     abstract fun bindSerieViewModel(viewModel: SerieViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: AppViewModelFactory): ViewModelProvider.Factory
